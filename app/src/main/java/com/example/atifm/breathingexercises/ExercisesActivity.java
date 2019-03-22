@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.PopupMenu;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -52,19 +54,26 @@ public class ExercisesActivity extends AppCompatActivity {
 
     private void setUpActionListeners() {
 
+        // action listener for changing exercise button
         Button changeExerciseButton = (Button) findViewById(R.id.changeExerciseButton);
         changeExerciseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showTestToast();
+                createExercisePopupMenu(view);
             }
         });
     }
 
+    // method for debugging
     private void showTestToast() {
         Toast.makeText(getApplicationContext(),"HelloHello",Toast.LENGTH_SHORT).show();
     }
 
 
+    private void createExercisePopupMenu(View v) {
+        PopupMenu changeExerciseMenu = new PopupMenu(this, v);
+        changeExerciseMenu.inflate(R.menu.exercise_menu);
+        changeExerciseMenu.show();
+    }
 
 }
