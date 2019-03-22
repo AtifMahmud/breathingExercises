@@ -8,12 +8,15 @@ import android.support.v7.widget.PopupMenu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 public class ExercisesActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener, PopupMenu.OnMenuItemClickListener {
 
     private TextView mTextMessage;
+    FrameLayout exerciseFrame;
+
 
     // automatically generated
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -46,12 +49,15 @@ public class ExercisesActivity extends AppCompatActivity implements MenuItem.OnM
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+        // assign variables
+        exerciseFrame = (FrameLayout) findViewById(R.id.exerciseFrame);
+
         // setup action listeners
-        setUpActionListeners();
+        setUp();
 
     }
 
-    private void setUpActionListeners() {
+    private void setUp() {
 
         // action listener for changing exercise button
         Button changeExerciseButton = (Button) findViewById(R.id.changeExerciseButton);
@@ -63,12 +69,6 @@ public class ExercisesActivity extends AppCompatActivity implements MenuItem.OnM
         });
     }
 
-    // method for debugging
-    private void showTestToast(String string) {
-        Toast.makeText(getApplicationContext(),string + " Hello ", Toast.LENGTH_SHORT).show();
-    }
-
-
     private void createExercisePopupMenu(View v) {
         PopupMenu changeExerciseMenu = new PopupMenu(this, v);
         changeExerciseMenu.setOnMenuItemClickListener(this);
@@ -79,7 +79,8 @@ public class ExercisesActivity extends AppCompatActivity implements MenuItem.OnM
 
     @Override
     public boolean onMenuItemClick(MenuItem menuItem) {
-        showTestToast((String) menuItem.getTitle());
+        exerciseFrame.removeAllViews();
+        View.inflate(this, R.layout.test_layout, exerciseFrame);
         return false;
     }
 
@@ -87,7 +88,7 @@ public class ExercisesActivity extends AppCompatActivity implements MenuItem.OnM
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
-
+        // override: deal with later
     }
 }
 
