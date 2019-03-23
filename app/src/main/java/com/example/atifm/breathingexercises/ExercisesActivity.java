@@ -1,5 +1,7 @@
 package com.example.atifm.breathingexercises;
 
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -9,7 +11,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class ExercisesActivity extends AppCompatActivity implements MenuItem.OnMenuItemClickListener, PopupMenu.OnMenuItemClickListener {
@@ -80,10 +84,39 @@ public class ExercisesActivity extends AppCompatActivity implements MenuItem.OnM
     @Override
     public boolean onMenuItemClick(MenuItem menuItem) {
         exerciseFrame.removeAllViews();
-        View.inflate(this, R.layout.test_layout, exerciseFrame);
-        return false;
+
+        switch ((String) menuItem.getTitle()){
+            case "The 555 Method":
+                Toast.makeText(this, "Test", Toast.LENGTH_SHORT).show();
+                View.inflate(this, R.layout.five_five_five_method, exerciseFrame);
+                return true;
+            case "The 5-4-3-2-1 Method":
+                View.inflate(this, R.layout.five_four_three_two_one, exerciseFrame);
+                return true;
+            case "Interactive Breathing Exercise":
+                View.inflate(this, R.layout.interactive_breathing_exercise, exerciseFrame);
+                pulsateBall();
+                return true;
+            default:
+                return false;
+        }
     }
 
+
+    private void pulsateBall() {
+        ImageView ball = (ImageView) findViewById(R.id.pulsatingBall);
+
+        ObjectAnimator scaleDown = ObjectAnimator.ofPropertyValuesHolder(
+                ball,
+                PropertyValuesHolder.ofFloat("scaleX", 2.0f),
+                PropertyValuesHolder.ofFloat("scaleY", 2.0f));
+        scaleDown.setDuration(3000);
+
+        scaleDown.setRepeatCount(ObjectAnimator.INFINITE);
+        scaleDown.setRepeatMode(ObjectAnimator.REVERSE);
+
+        scaleDown.start();
+    }
 
 
     @Override
